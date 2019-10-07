@@ -133,36 +133,38 @@ def acp(X,noms_individus, noms_variables):
     print("F1", F1)
     print("F2", F2)
 
-    plt.figure(2)
-    axes = plt.gca()
-    plt.axis('on')
-    #axes.set(xlim=(-4.5, 7), ylim=(-4.5, 3))
-    axes.add_artist(plt.Line2D((-5, 7), (0, 0),
-                              color = 'black', linewidth = 2))
-    axes.add_artist(plt.Line2D((0, 0), (-4.5, 3),
-                              color = 'black', linewidth = 2))
-    axes.set(xlabel='F1', ylabel='F2',
-       title='Premier plan factoriel')
-    plt.plot(F1, F2,'o')
-    # https://www.saltycrane.com/blog/2007/12/iterating-through-two-lists-in-parallel/
-    # zip returns a list of tuples, where the i-th tuple contains the i-th 
-    # element from each of the argument sequences or iterables. 
-    # This is useful for iterating over two lists in parallel.
-    for label,x,y in zip(noms_individus, F1, F2):
-        #plt.text(x, y, label)
-        plt.annotate(label,
-                     xy=(x,y),
-                     xytext=(-50,5),
-                     textcoords='offset points',
-                     #textcoords='figure points',
-                     #ha='right', va='bottom',
-                     arrowprops=dict(arrowstyle = '->',
-                                     connectionstyle='arc3,rad=0')
-                     )
-    #for i in range(0,14):
-    #    plt.text(F1[i], F2[i], noms_individus[i])
-    plt.grid()
-    plt.show()
+#    plt.figure(2)
+#    axes = plt.gca()
+#    plt.axis('on')
+#    #axes.set(xlim=(-4.5, 7), ylim=(-4.5, 3))
+#    axes.add_artist(plt.Line2D((-5, 7), (0, 0),
+#                              color = 'black', linewidth = 2))
+#    axes.add_artist(plt.Line2D((0, 0), (-4.5, 3),
+#                              color = 'black', linewidth = 2))
+#    axes.set(xlabel='F1', ylabel='F2',
+#       title='Premier plan factoriel')
+#    plt.plot(F1, F2,'o')
+#    # https://www.saltycrane.com/blog/2007/12/iterating-through-two-lists-in-parallel/
+#    # zip returns a list of tuples, where the i-th tuple contains the i-th 
+#    # element from each of the argument sequences or iterables. 
+#    # This is useful for iterating over two lists in parallel.
+#    for label,x,y in zip(noms_individus, F1, F2):
+#        #plt.text(x, y, label)
+#        plt.annotate(label,
+#                     xy = (x,y), # The point (x,y) to annotate
+#                     # The position (x,y) to place the text at
+#                     xytext = (-40,10), 
+#                     # Offset (in points) from the xy value
+#                     textcoords = 'offset points',        
+#                     #textcoords='figure points',
+#                     #ha='right', va='bottom',
+#                     arrowprops=dict(arrowstyle = '->',
+#                                     connectionstyle='arc3,rad=0')
+#                     )
+#    #for i in range(0,14):
+#    #    plt.text(F1[i], F2[i], noms_individus[i])
+#    plt.grid()
+#    plt.show()
     
     G1, G2 = fact_var[:,0], fact_var[:,1]
     print("G1", G1)
@@ -178,10 +180,10 @@ def acp(X,noms_individus, noms_variables):
     axes = plt.gca()
     plt.axis('on')
     #axes.set(xlim=(0.75, 1.025), ylim=(-0.75, 0.75))
-    #axes.add_artist(plt.Line2D((-5, 7), (0, 0),
-    #                          color = 'black', linewidth = 2))
-    #axes.add_artist(plt.Line2D((0, 0), (-4.5, 3),
-    #                          color = 'black', linewidth = 2))
+    axes.add_artist(plt.Line2D((-1.2, 1.2), (0, 0),
+                              color = 'black', linewidth = 2))
+    axes.add_artist(plt.Line2D((0, 0), (-1.25, 1.2),
+                              color = 'black', linewidth = 2))
     axes.set(xlabel='G1', ylabel='G2',
        title='Premier plan factoriel : projection du nuage des variables')
     plt.plot(G1, G2,'o')
@@ -192,9 +194,11 @@ def acp(X,noms_individus, noms_variables):
     # This is useful for iterating over two lists in parallel.
     for label,x,y in zip(noms_variables, G1, G2):
         plt.annotate(label,
-                     xy=(x,y),
-                     xytext=(-50,5),
-                     textcoords='offset points',
+                     xy = (x,y), # The point (x,y) to annotate
+                     # The position (x,y) to place the text at
+                     xytext = (-50,5), 
+                     # Offset (in points) from the xy value
+                     textcoords = 'offset points',
                      #textcoords='figure points',
                      #ha='right', va='bottom',
                      arrowprops=dict(arrowstyle = '->',
