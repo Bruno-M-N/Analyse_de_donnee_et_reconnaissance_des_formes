@@ -43,6 +43,8 @@ L'objectif général de ce
 
 \section{Principe des Solutions}
 
+Des modules différents ont été développés pour chacune des 
+
 La stratégie de quadripartition a été utilisée pour le développement du code split. On a commencé avec un version plus simple et fonctionnel et après on a ajouté la création des listes des régions homogènes détermines pour la méthode \textit{découper}, le coeur du partitionnement de l'étape split. Cela est une méthode récursive qui traite un timbre (une patch) de l'image et, si elle est en dessous du critère de homogénéité de couleur déterminé par le seuil, l'attribue la couleur de la moyenne des pixels la constituant et conservé la région. Au-dessus de ce seuil, la région est découpé en quatre.
 
 Après la création des listes des régions, on a travaillé sur l'élaboration des listes des régions adjacentes (\textit{Region Adjacency List} - RAL), semblable au \textit{Region Adjacency Graph} (RAG), mais plus simple et pratique. Ces structures sont importantes pour la réalisation de la fusion, merge, et son algorithme.
