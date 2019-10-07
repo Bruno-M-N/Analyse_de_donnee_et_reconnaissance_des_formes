@@ -1,3 +1,11 @@
+"""
+UE INF a 4-EG : Analyse de données et reconnaissance des formes
+@author: Bruno Moreira Nabinger
+@author: Clément Vinot
+
+Classification ascendante hiérarchique - CAH 
+"""
+
 # https://numpy.org/devdocs/user/quickstart.html#quickstart-shape-manipulation
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,7 +18,20 @@ def readfile(filename):
     return data
 
 def cah(X, noms_lignes, noms_colonnes):
-
+    ''' Classification ascendante hiérarchique
+    
+        RÃ©alise une Classification non supervisée du type ascendante 
+        hiérarchique (CAH) en affichant une hiérarchie de partitions, le 
+        dendrogrammes, et 
+        
+        Parameters:
+            X : matrice centrée-réduite calculée à partir des données brutes
+            noms_individus (list de strings) : noms des individus pour la ACP
+            noms_variables (list de strings) : noms des variables pour la ACP
+        Returns:
+            None
+    '''
+    
     # Construction de l’arbre hiérarchique par agrégations successives de deux
     # éléments-----------------------------------------------------------------
     # scipy.cluster.hierarchy.linkage(y, method='single', metric='euclidean',
@@ -19,8 +40,9 @@ def cah(X, noms_lignes, noms_colonnes):
     # Perform hierarchical/agglomerative clustering.
     Z = linkage(X, 'ward')
 
-    # Affichage de l'arbre hiérarchique par agrégations successives grâce à 
+    # Affichage de l'arbre hiÃ©rarchique par agrÃ©gations successives grÃ¢ce Ã  
     # un dendrogram------------------------------------------------------------
+    print("Dendrogram")
     plt.title('Hierarchical clustering dendrogram') 
     plt.xlabel('sample index')
     plt.ylabel ('distance')
@@ -30,20 +52,22 @@ def cah(X, noms_lignes, noms_colonnes):
     leaf_font_size = 8, # font size for the x axis labels
     )
 
-    # Coupure de l’arbre hiérarchique pour obtenir une partition---------------
+    # Coupure de l'arbre hiérarchique pour obtenir une partition---------------
     # scipy.cluster.hierarchy.fcluster(Z, t, criterion='inconsistent', depth=2,
     #                                  R=None, monocrit=None)[source]
     # Forms flat clusters from the hierarchical clustering defined by the 
     # linkage matrix Z.
     k = 3
     clusters = fcluster(Z, k, criterion = 'maxclust')
+    print("Clusters")
     print(clusters)
     
-    # Affichage de l'arbre hiérarchique par agrégations successives grâce à 
+    # Affichage de l'arbre hiérarchique par agrégations successives grâce à  
     # un dendrogram------------------------------------------------------------
 
     plt.figure(figsize=(10, 8))
-    plt.scatter(X[:,0], X[:,1], c = clusters)#, cmap = plt.cm.spectral) # plot points with cluster depende
+    plt.scatter(X[:,0], X[:,1], c = clusters)#, cmap = plt.cm.spectral) 
+                                             # plot points with cluster depende
 
     for label, x, y in zip(noms_lignes, X[:,0], X[:,1]):
         plt.annotate(label, 
