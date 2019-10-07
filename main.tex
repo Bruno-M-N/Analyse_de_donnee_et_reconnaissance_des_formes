@@ -1,0 +1,150 @@
+\documentclass{rapportECL}
+
+\usepackage{minted}
+%https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted
+
+%https://www.overleaf.com/latex/examples/source-code-highlighting-with-minted-in-latex/qphhfvnsddbs
+
+
+ 
+%\usepackage{listingsutf8} %Display code in LaTeX, using the lstlisting environment
+% https://tex.stackexchange.com/questions/312429/an-error-appears-saying-that-utf8-and-listing-are-not-compatible?rq=1
+
+
+\title{Méthode Mixte : classification et analyse factorielle} %Titre du fichier
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+
+\titre{Méthode Mixte : classification et analyse factorielle} %Titre du fichier .pdf
+\UE{UE INF a 4-EG} %Nom de la UE
+\sujet{Analyse de Données} %Nom du sujet
+
+\enseignant{Emmanuel\textsc{Dellandréa}} %Nom de l'enseignant
+
+\eleves{Bruno \textsc{Moreira Nabinger} \\
+		Clément \textsc{Vinot} } %Nom des élèves
+
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+\tabledematieres %Créer la table de matières
+
+%------------ Corps du rapport ----------------
+
+
+\section{Introduction} 
+
+L'objectif général de ce 
+
+\section{Cahier des charges}
+
+\section{Principe des Solutions}
+
+La stratégie de quadripartition a été utilisée pour le développement du code split. On a commencé avec un version plus simple et fonctionnel et après on a ajouté la création des listes des régions homogènes détermines pour la méthode \textit{découper}, le coeur du partitionnement de l'étape split. Cela est une méthode récursive qui traite un timbre (une patch) de l'image et, si elle est en dessous du critère de homogénéité de couleur déterminé par le seuil, l'attribue la couleur de la moyenne des pixels la constituant et conservé la région. Au-dessus de ce seuil, la région est découpé en quatre.
+
+Après la création des listes des régions, on a travaillé sur l'élaboration des listes des régions adjacentes (\textit{Region Adjacency List} - RAL), semblable au \textit{Region Adjacency Graph} (RAG), mais plus simple et pratique. Ces structures sont importantes pour la réalisation de la fusion, merge, et son algorithme.
+
+Par la suite, on a travaillé sur le méthode merge.
+L'approche utilisé pour déterminer si deux régions doivent fusionner sont les conditions qui elles soient adjacentes et de couleurs proches (définie par un valeur de seuil).
+
+On a commencé les tests avec l'image noire et blanche "test.bpm", constituée de 16 pixels, dont le schéma est représenté en Figure \ref{fig: Label schema_image_test}.
+
+%------ Pour insérer et citer une image centralisée -----
+\insererfigure{img/schema_image_test.JPG}{8cm}{Schéma de l'image test}{Label schema_image_test}
+% Le premier argument est le chemin pour la photo
+% Le deuxième est la hauteur de la photo
+% Le troisième la légende
+% Le quatrième le label
+
+La stratégie de quadripartition avec le parcours en profondeur de l'arbre quaternaire dont les feuilles correspondent aux régions homogènes a été adopté. Les feuilles sont numérotées dans l'ordre de leur visite permettant ainsi de numéroter les régions correspondantes de l'image dont on retient les coordonnées du coin gauche supérieur et du coin droite inférieur, bien comme sa couleur (cf Figure \ref{fig: Label arbre_parcouru}).
+
+%------ Pour insérer et citer une image centralisée -----
+\insererfigure{img/arbre_parcouru_quadripartition.JPG}{6cm}{L'arbre parcouru en appliquant la stratégie quadripartition}{Label arbre_parcouru}
+% Le premier argument est le chemin pour la photo
+% Le deuxième est la hauteur de la photo
+% Le troisième la légende
+% Le quatrième le label
+
+%Ici, je cite l'image \ref{fig: Label du diagramme UML}
+
+\section{Implementation}
+
+L'implementation du programme a été faite avec la langage Python 3.7. Le documentation a été fait en utilisant docstrings et des commentaires. On a aussi fait le design du code de tel façon  à aider la compréhension, en choisissant les nome des variables, attributs et méthodes qui explicitent la solution. Quelques méthodes ont été nommés d'après les fichiers disponibles dans la plateforme Pédagogique.
+
+L'archive BE3-remarques-fusion.pdf disponibles dans la plateforme Pédagogique a été utilise pour réaliser quelques optimisations dans le code.
+
+Le code est montré dans le topique suivant:
+
+\subsection{Code}
+
+\inputminted[linenos=True]{python}{scr/cah.py}
+
+\subsection{Analyse des résultats}
+
+\subsubsection{Test avec l'image noire et blanche "test.bpm", de 16 pixels}
+
+Les listes de régions homogènes et de régions adjacentes ont été affichées à travers la méthode \textit{print}, pour permettre de compare le résultat avec celui présenté sur le sujet.
+
+%------ Pour insérer et citer une image centralisée -----
+\insererfigure{img/Sortie_du_code1.JPG}{13cm}{Sortie du code pour l'image "test.bmp"}{Label Sortie_du_code1}
+% Le premier argument est le chemin pour la photo
+% Le deuxième est la hauteur de la photo
+% Le troisième la légende
+% Le quatrième le label
+
+%------ Pour insérer et citer une image centralisée -----
+\insererfigure{img/Sortie_du_code2.JPG}{13cm}{Continuation de la sortie du code pour l'image "test.bmp" : résultat après merge}{Label Sortie_du_code2}
+% Le premier argument est le chemin pour la photo
+% Le deuxième est la hauteur de la photo
+% Le troisième la légende
+% Le quatrième le label
+
+\subsubsection{Tests avec l'image "Image10.bmp"}
+
+Les résultats pour ces tests sont présenté dans les figures \ref{fig: Label Split5Merge8_1}, \ref{fig: Label Split5Merge8_2} et \ref{fig: Label Split4Merge10_2}.
+
+La ligne 112 du code a été changé pour augmenter l'efficacité du code. C'était  remarquable la différence du temps nécessaire pour exécuter le code.
+
+\mint{python}|if (largeur < 2 and hauteur < 2):|
+
+%------ Pour insérer et citer une image centralisée -----
+\insererfigure{img/Split_5_Merge_8_min_taille_moin_que_1.PNG}{9.5cm}{Résultat pour split (seuil = 5) et merge (seuil = 8) avec le limit de taille de un patch inférieur à 1}{Label Split5Merge8_1}
+% Le premier argument est le chemin pour la photo
+% Le deuxième est la hauteur de la photo
+% Le troisième la légende
+% Le quatrième le label
+
+%Ici, je cite l'image \ref{fig: Label du diagramme UML}
+
+%------ Pour insérer et citer une image centralisée -----
+\insererfigure{img/Split_5_Merge_8_min_taille_moin_que_2.PNG}{9.5cm}{Résultat pour split (seuil = 5) et merge (seuil = 8) avec le limit de taille de un patch inférieur à 2}{Label Split5Merge8_2}
+% Le premier argument est le chemin pour la photo
+% Le deuxième est la hauteur de la photo
+% Le troisième la légende
+% Le quatrième le label
+
+%Ici, je cite l'image \ref{fig: Label du diagramme UML}
+
+%------ Pour insérer et citer une image centralisée -----
+\insererfigure{img/Split_4_Merge_10_min_taille_moin_que_2.PNG}{7cm}{Résultat pour split (seuil = 5) et merge (seuil = 8) avec le limit de taille de un patch inférieur à 2}{Label Split4Merge10_2}
+% Le premier argument est le chemin pour la photo
+% Le deuxième est la hauteur de la photo
+% Le troisième la légende
+% Le quatrième le label
+
+%Ici, je cite l'image \ref{fig: Label du diagramme UML}
+
+\subsubsection{Améliorations Possibles}
+
+Une interface graphique peut être développé peut rendre plus facile et rapide le choix et l'affichage des résultats. Pour faire cela, quelques composants du  module  Python “Tkinter”, permettant de créer des interfaces graphiques, peuvent être utilisés. Aussi, des optimisations dans le code peuvent être réalises.
+
+\section{Conclusion}
+
+L'algorithme implémenté peut réduire la quantité d'information d'une image selon les besoins d'utilisateur. La qualité de l'image est affecté, mais il devient plus facile de la stocker et traiter.
+
+Le développement du code a été un bonne opportunité pour approfondir les connaissance de la langage python et ces possibilités. L'implementation des structures de donnés sur les listes a permis de mieux comprendre les propres structures.
+
+\end{document}
