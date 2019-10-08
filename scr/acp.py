@@ -108,7 +108,7 @@ def acp(X,noms_individus, noms_variables):
     #Qualité de représentation-------------------------------------------------
     # vecteur collone de dim 28
     dist = (fact_ind**2).sum(1)
-    tdist = dist.reshape(len(noms_individus),1)
+    tdist = dist.reshape(len(noms_individus), 1)
     print(tdist.shape)
     qualite_ind = fact_ind**2 / tdist
     print('Qualité de représentation des individus')
@@ -133,38 +133,38 @@ def acp(X,noms_individus, noms_variables):
     print("F1", F1)
     print("F2", F2)
 
-#    plt.figure(2)
-#    axes = plt.gca()
-#    plt.axis('on')
-#    #axes.set(xlim=(-4.5, 7), ylim=(-4.5, 3))
-#    axes.add_artist(plt.Line2D((-5, 7), (0, 0),
-#                              color = 'black', linewidth = 2))
-#    axes.add_artist(plt.Line2D((0, 0), (-4.5, 3),
-#                              color = 'black', linewidth = 2))
-#    axes.set(xlabel='F1', ylabel='F2',
-#       title='Premier plan factoriel')
-#    plt.plot(F1, F2,'o')
-#    # https://www.saltycrane.com/blog/2007/12/iterating-through-two-lists-in-parallel/
-#    # zip returns a list of tuples, where the i-th tuple contains the i-th 
-#    # element from each of the argument sequences or iterables. 
-#    # This is useful for iterating over two lists in parallel.
-#    for label,x,y in zip(noms_individus, F1, F2):
-#        #plt.text(x, y, label)
-#        plt.annotate(label,
-#                     xy = (x,y), # The point (x,y) to annotate
-#                     # The position (x,y) to place the text at
-#                     xytext = (-40,10), 
-#                     # Offset (in points) from the xy value
-#                     textcoords = 'offset points',        
-#                     #textcoords='figure points',
-#                     #ha='right', va='bottom',
-#                     arrowprops=dict(arrowstyle = '->',
-#                                     connectionstyle='arc3,rad=0')
-#                     )
-#    #for i in range(0,14):
-#    #    plt.text(F1[i], F2[i], noms_individus[i])
-#    plt.grid()
-#    plt.show()
+    plt.figure(2)
+    axes = plt.gca()
+    plt.axis('on')
+    #axes.set(xlim=(-4.5, 7), ylim=(-4.5, 3))
+    axes.add_artist(plt.Line2D((-5, 7), (0, 0),
+                              color = 'black', linewidth = 2))
+    axes.add_artist(plt.Line2D((0, 0), (-4.5, 3),
+                              color = 'black', linewidth = 2))
+    axes.set(xlabel='F1', ylabel='F2',
+       title='Premier plan factoriel')
+    plt.plot(F1, F2,'o')
+    # https://www.saltycrane.com/blog/2007/12/iterating-through-two-lists-in-parallel/
+    # zip returns a list of tuples, where the i-th tuple contains the i-th 
+    # element from each of the argument sequences or iterables. 
+    # This is useful for iterating over two lists in parallel.
+    for label,x,y in zip(noms_individus, F1, F2):
+        #plt.text(x, y, label)
+        plt.annotate(label,
+                     xy = (x,y), # The point (x,y) to annotate
+                     # The position (x,y) to place the text at
+                     xytext = (-40,10), 
+                     # Offset (in points) from the xy value
+                     textcoords = 'offset points',        
+                     #textcoords='figure points',
+                     #ha='right', va='bottom',
+                     arrowprops=dict(arrowstyle = '->',
+                                     connectionstyle='arc3,rad=0')
+                     )
+    #for i in range(0,14):
+    #    plt.text(F1[i], F2[i], noms_individus[i])
+    plt.grid()
+    plt.show()
     
     G1, G2 = fact_var[:,0], fact_var[:,1]
     print("G1", G1)
@@ -208,7 +208,8 @@ def acp(X,noms_individus, noms_variables):
     #    plt.text(G1[i], G2[i], noms_variables[i])
     plt.grid()
     plt.show()
-
+    print("Go back")
+    return val_p_ind, fact_ind, fact_var
 
 if __name__ == "__main__":
     # Lecture des données------------------------------------------------------
@@ -221,8 +222,8 @@ if __name__ == "__main__":
     #print("Matrice", mat.shape,": \n" ,  mat)
     basicStatics(mat)
     matNorm = normalisation(mat)
-    acp(matNorm[:,0:10],noms_individus, noms_variables)
-    
+    a,b,c = acp(matNorm[:,0:10],noms_individus, noms_variables)
+    print("Donne",a,b,c)
 #    noms_individus = readfile("donnees/villes_noms_individus.txt")
 #    noms_variables = readfile("donnees/villes_noms_variables.txt")
 #

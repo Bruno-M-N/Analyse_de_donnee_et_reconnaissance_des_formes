@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 UE INF a 4-EG : Analyse de données et reconnaissance des formes
 @author: Bruno Moreira Nabinger
@@ -20,7 +21,7 @@ def readfile(filename):
 def cah(X, noms_lignes, noms_colonnes):
     ''' Classification ascendante hiérarchique
     
-        RÃ©alise une Classification non supervisée du type ascendante 
+        Réalise une Classification non supervisée du type ascendante 
         hiérarchique (CAH) en affichant une hiérarchie de partitions, le 
         dendrogrammes, et 
         
@@ -32,7 +33,7 @@ def cah(X, noms_lignes, noms_colonnes):
             None
     '''
     
-    # Construction de l’arbre hiérarchique par agrégations successives de deux
+    # Construction de l'arbre hiérarchique par agrégations successives de deux
     # éléments-----------------------------------------------------------------
     # scipy.cluster.hierarchy.linkage(y, method='single', metric='euclidean',
     #                                 optimal_ordering=False)[source]
@@ -40,7 +41,7 @@ def cah(X, noms_lignes, noms_colonnes):
     # Perform hierarchical/agglomerative clustering.
     Z = linkage(X, 'ward')
 
-    # Affichage de l'arbre hiÃ©rarchique par agrÃ©gations successives grÃ¢ce Ã  
+    # Affichage de l'arbre hiérarchique par agrégations successives grâce à  
     # un dendrogram------------------------------------------------------------
     print("Dendrogram")
     plt.title('Hierarchical clustering dendrogram') 
@@ -72,7 +73,7 @@ def cah(X, noms_lignes, noms_colonnes):
     for label, x, y in zip(noms_lignes, X[:,0], X[:,1]):
         plt.annotate(label, 
         xy = (x,y), # The point (x,y) to annotate
-        xytext = (-5,5), # The position (x,y) to place the text at
+        xytext = (-50,5), # The position (x,y) to place the text at
         textcoords = 'offset points', # Offset (in points) from the xy value
         ha = "right", va = "bottom",
         arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3, rad=0')
@@ -81,14 +82,12 @@ def cah(X, noms_lignes, noms_colonnes):
     plt.title('moyennes')
     plt.show()
 
-
 if __name__ == "__main__":
-
     # Lecture des données------------------------------------------------------
-    data = np.loadtxt("TD3-donnees/csp-donnees.txt")
+    data = np.loadtxt("donnees/csp-donnees.txt")
     # Codes de CSP : 22
-    noms_lignes = readfile('TD3-donnees/csp-noms_modalites1.txt')
+    noms_lignes = readfile('donnees/csp-noms_modalites1.txt')
     # Codes des disciplines : 6 
-    noms_colonnes = readfile('TD3-donnees/csp-noms_modalites2.txt')
+    noms_colonnes = readfile('donnees/csp-noms_modalites2.txt')
 
     cah(data, noms_lignes, noms_colonnes)
