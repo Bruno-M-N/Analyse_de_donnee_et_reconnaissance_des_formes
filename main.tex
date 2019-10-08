@@ -21,7 +21,7 @@
 \UE{UE INF a 4-EG} %Nom de la UE
 \sujet{Analyse de Données} %Nom du sujet
 
-\enseignant{Emmanuel\textsc{Dellandréa}} %Nom de l'enseignant
+\enseignant{Emmanuel \textsc{Dellandréa}} %Nom de l'enseignant
 
 \eleves{Bruno \textsc{Moreira Nabinger} \\
 		Clément \textsc{Vinot} } %Nom des élèves
@@ -36,12 +36,45 @@
 
 
 \section{Introduction} 
+%slide 66-67/72
+Comme vu en cours, les méthodes d’analyse factorielle sont bien adaptées à l’exploration de tableaux de données de taille importante, mais une seule partie de l'information est représentée et parfois elle est trop complexe. C'est à ce moment-là que l'on peut recourir à une des techniques de classification non-supervisée pour réaliser la compréhension de la structure des donnés et faciliter l'interprétation des résultats. On a donc une démarche combine. 
 
 L'objectif général de ce 
 
 \section{Cahier des charges}
 
 \section{Principe des Solutions}
+%slide 68/72
+Le principe de la classification mixte repose sur trois étapes :
+\begin{itemize}
+    \item analyse factorielle ;
+    \item classification à partir des facteurs ;
+    \item positionnement des classes dans le plan factoriel.
+\end{itemize}
+%slide 69-70/72
+La premier étape consiste dans la réalisation de l'analyse factorielle à partir des donnés, ce qui nous fournit les facteurs qui résument au mieux l'information contenue dans les donnés. Si $p$ est le nombre de variables des donnés de départ, la analyse factoriel nous permet d'obtenir $q$ facteurs, avec $q \ll  p$, qui contient la plus part de l'information portée par les $p$ variables.
+%slide 3/72 70-71/72
+La classification non-supervisée est destinée à produire des groupements de lignes ou de colonnes d'un tableau.
+
+"On cherche donc à les mettre en évidence
+par des représentations des classes
+d’éléments sous forme de partitions (ou
+hiérarchies de partitions)" %slide 4/72
+
+"Un des avantages des méthodes de
+classification est de mettre en évidence des
+classes souvent plus faciles à décrire
+automatiquement que les axes factoriels" %slide 6/72
+
+"La classification réalisée à partir des q facteurs
+peut reposer sur des méthodes de centres
+mobiles ou de classification ascendante
+hiérarchique" %slide 70-71/72
+
+"La classification offre la possibilité de projeter les centres des 
+classes sur ces plans, et d’indiquer également la classe
+d’appartenance des éléments (couleurs différentes par exemple)"%slide 70-71/72
+
 
 Des modules différents ont été développés pour chacune des 
 
@@ -52,6 +85,21 @@ L'implementation du programme a été faite avec la langage Python 3.7. Le docum
 L'archive BE3-remarques-fusion.pdf disponibles dans la plateforme Pédagogique a été utilise pour réaliser quelques optimisations dans le code.
 
 Le code est montré dans le topique suivant:
+
+Figure \ref{fig: Label diagramme_des_inerties}.
+
+%------ Pour insérer et citer une image centralisée -----
+\insererfigure{img/diagramme_des_inerties_acp.jpeg}{8cm}{Diagramme des inerties : ACP}{Label diagramme_des_inerties}
+% Le premier argument est le chemin pour la photo
+% Le deuxième est la hauteur de la photo
+% Le troisième la légende
+% Le quatrième le label
+
+Cette méthode mixte devra être réalisée pour quatre combinaisons :
+- ACP + CAH
+- ACP + centres mobiles
+- ACM + CAH
+- ACM + centres mobiles
 
 \subsection{Code}
 
@@ -64,5 +112,9 @@ Le code est montré dans le topique suivant:
 \subsection{Analyse des résultats}
 
 \section{Conclusion}
+
+
+\newpage
+\input{annexe.tex}
 
 \end{document}
