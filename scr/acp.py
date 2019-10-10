@@ -15,20 +15,34 @@ import matplotlib.pyplot as plt
 
 def basicStatics(mat):
     #print("Moyenne, Écart-type, Variance, Min, Max, Étendue")
-    for j in range(mat.shape[1]):
-        #La moyenne
-        meanCol = mat.mean(0)
-        #L'écart-type
-        stdCol = mat.std(0)
-        #La variance
-        varCol = stdCol**2
-        #La valeur minimale
-        minCol = mat.min(0)
-        #La valeur maximale
-        maxCol = mat.max(0)
-        #l’étendue
-        amplitudeCol = maxCol - minCol
-        #print(meanCol, stdCol, varCol, minCol, maxCol, amplitudeCol)
+    #La moyenne
+    meanCol = mat.mean(0)
+    #L'écart-type
+    stdCol = mat.std(0)
+    #La variance
+    varCol = stdCol**2
+    #La valeur minimale
+    minCol = mat.min(0)
+    #La valeur maximale
+    maxCol = mat.max(0)
+    #l’étendue
+    amplitudeCol = maxCol - minCol 
+    print("Moyenne   ", np.array2string(meanCol, formatter={'float_kind':
+                              lambda meanCol: "%6.1f" % meanCol}))
+    print("Écart-type", np.array2string(stdCol, formatter={'float_kind':
+                              lambda stdCol: "%6.1f" % stdCol}))
+    print("Variance  ", np.array2string(varCol, formatter={'float_kind':
+                              lambda varCol: "%6.1f" % varCol}))
+    print("Minimum   ", np.array2string(minCol, formatter={'float_kind':
+                              lambda minCol: "%6.1f" % minCol}))
+    print("Maximum   ", np.array2string(maxCol, formatter={'float_kind':
+                              lambda maxCol: "%6.1f" % maxCol}))
+    print("Étendue   ", np.array2string(amplitudeCol, formatter={'float_kind':
+                              lambda amplitudeCol: "%6.1f" % amplitudeCol}))
+    #print("Moyenne", np.array2string(meanCol, precision=2, separator='.'))
+
+
+
 
 def acp(X,noms_individus, noms_variables):
     ''' Analyse en Composantes Principales
@@ -117,6 +131,8 @@ def acp(X,noms_individus, noms_variables):
     #Inerties------------------------------------------------------------------
     print('Inerties')
     print(inerties)
+    
+    plt.close('all') # Close all figures window
     plt.figure(1)
     plt.plot(inerties,'o-')
     plt.title("Diagramme des inerties")
@@ -220,10 +236,11 @@ if __name__ == "__main__":
 
     mat = np.loadtxt("donnees/population_donnees.txt")
     #print("Matrice", mat.shape,": \n" ,  mat)
+    print("            PROF   TRAN   MENA   ENFA   COUR   TOIL   REPA   SOMM   TELE   LOIS")
     basicStatics(mat)
-    matNorm = normalisation(mat)
-    a,b,c = acp(matNorm[:,0:10],noms_individus, noms_variables)
-    print("Donne",a,b,c)
+    print("            PROF   TRAN   MENA   ENFA   COUR   TOIL   REPA   SOMM   TELE   LOIS")
+    acp(matNorm[:,0:10],noms_individus, noms_variables)
+    #print("Donne",a,b,c)
 #    noms_individus = readfile("donnees/villes_noms_individus.txt")
 #    noms_variables = readfile("donnees/villes_noms_variables.txt")
 #

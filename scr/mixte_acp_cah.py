@@ -58,3 +58,6 @@ if __name__ == "__main__":
     print("Nombre de facteurs retenu = ", nombrefacteurs, "__________________")
             
     cah(fact_ind[:,0:nombrefacteurs], noms_individus, noms_variables)
+    
+    
+    cah(fact_var[:,0:nombrefacteurs], noms_variables, noms_individus)

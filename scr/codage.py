@@ -120,10 +120,10 @@ if __name__ == "__main__":
     #matNorm = normalisation(mat)
     #print("Matice normalise", matNorm.shape,": \n" , matNorm)
     
-#    print("\n Découpage des variables quantitatives en intervalles égaux")
-#    nClasses = 5
-#    print("Nombre de Classes :", nClasses)
-#    print(quantitatif_en_qualitatif1(mat, nClasses))
+    print("\n Découpage des variables quantitatives en intervalles égaux")
+    nClasses = 5
+    print("Nombre de Classes :", nClasses)
+    print(quantitatif_en_qualitatif1(mat, nClasses))
 #    
 #    print("\n Découpage des variables quantitatives en effectifs égaux")
 #    nClasses = 5
