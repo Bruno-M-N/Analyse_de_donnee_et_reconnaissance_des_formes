@@ -13,37 +13,6 @@ import codage
 import math
 import matplotlib.pyplot as plt
 
-def basicStatics(mat):
-    #print("Moyenne, Écart-type, Variance, Min, Max, Étendue")
-    #La moyenne
-    meanCol = mat.mean(0)
-    #L'écart-type
-    stdCol = mat.std(0)
-    #La variance
-    varCol = stdCol**2
-    #La valeur minimale
-    minCol = mat.min(0)
-    #La valeur maximale
-    maxCol = mat.max(0)
-    #l’étendue
-    amplitudeCol = maxCol - minCol 
-    print("Moyenne   ", np.array2string(meanCol, formatter={'float_kind':
-                              lambda meanCol: "%6.1f" % meanCol}))
-    print("Écart-type", np.array2string(stdCol, formatter={'float_kind':
-                              lambda stdCol: "%6.1f" % stdCol}))
-    print("Variance  ", np.array2string(varCol, formatter={'float_kind':
-                              lambda varCol: "%6.1f" % varCol}))
-    print("Minimum   ", np.array2string(minCol, formatter={'float_kind':
-                              lambda minCol: "%6.1f" % minCol}))
-    print("Maximum   ", np.array2string(maxCol, formatter={'float_kind':
-                              lambda maxCol: "%6.1f" % maxCol}))
-    print("Étendue   ", np.array2string(amplitudeCol, formatter={'float_kind':
-                              lambda amplitudeCol: "%6.1f" % amplitudeCol}))
-    #print("Moyenne", np.array2string(meanCol, precision=2, separator='.'))
-
-
-
-
 def acp(X,noms_individus, noms_variables):
     ''' Analyse en Composantes Principales
     
@@ -53,11 +22,14 @@ def acp(X,noms_individus, noms_variables):
         Premier plan factoriel
     
         Parameters:
-            X : matrice centrée-réduite calculée à partir des données brutes
+            X (numpy.ndarray): matrice centrée-réduite calculée à partir des
+                données brutes
             noms_individus (list de strings) : noms des individus pour la ACP
             noms_variables (list de strings) : noms des variables pour la ACP
         Returns:
-            None
+            val_p_ind (numpy.ndarray): Valeur propres
+            fact_ind (numpy.ndarray): 
+            fact_var (numpy.ndarray):
     '''
     
     # X : matrice centrée-réduite calculée à partir des données brutes
@@ -224,7 +196,7 @@ def acp(X,noms_individus, noms_variables):
     #    plt.text(G1[i], G2[i], noms_variables[i])
     plt.grid()
     plt.show()
-    print("Go back")
+    
     return val_p_ind, fact_ind, fact_var
 
 if __name__ == "__main__":
@@ -239,6 +211,7 @@ if __name__ == "__main__":
     print("            PROF   TRAN   MENA   ENFA   COUR   TOIL   REPA   SOMM   TELE   LOIS")
     basicStatics(mat)
     print("            PROF   TRAN   MENA   ENFA   COUR   TOIL   REPA   SOMM   TELE   LOIS")
+    matNorm = normalisation(mat)
     acp(matNorm[:,0:10],noms_individus, noms_variables)
     #print("Donne",a,b,c)
 #    noms_individus = readfile("donnees/villes_noms_individus.txt")

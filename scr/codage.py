@@ -8,18 +8,43 @@ Created on Thu Sep  5 08:10:28 2019
 # https://numpy.org/devdocs/user/quickstart.html#quickstart-shape-manipulation
 import numpy as np
 
-debugPrints = 1
-
-def dprint(string):
-    if debugPrints:
-        print(string)
-
 def readfile(filename):
     with open(filename) as f:
         data = f.readlines()
     return data
 
-
+def basicStatics(mat):
+    '''Étude univariée qui consiste à décrire individuellement chaque variable
+    afin de mieux les connaître. Pour chaque variable du tableau de données, la
+    moyenne, l'écart-type, la variance,la valeur mininale, la valeur maximale, 
+    et l'étendue sont calculés
+    '''
+    #print("Moyenne, Écart-type, Variance, Min, Max, Étendue")
+    #La moyenne
+    meanCol = mat.mean(0)
+    #L'écart-type
+    stdCol = mat.std(0)
+    #La variance
+    varCol = stdCol**2
+    #La valeur minimale
+    minCol = mat.min(0)
+    #La valeur maximale
+    maxCol = mat.max(0)
+    #l’étendue
+    amplitudeCol = maxCol - minCol 
+    print("Moyenne   ", np.array2string(meanCol, formatter={'float_kind':
+                              lambda meanCol: "%6.1f" % meanCol}))
+    print("Écart-type", np.array2string(stdCol, formatter={'float_kind':
+                              lambda stdCol: "%6.1f" % stdCol}))
+    print("Variance  ", np.array2string(varCol, formatter={'float_kind':
+                              lambda varCol: "%6.1f" % varCol}))
+    print("Minimum   ", np.array2string(minCol, formatter={'float_kind':
+                              lambda minCol: "%6.1f" % minCol}))
+    print("Maximum   ", np.array2string(maxCol, formatter={'float_kind':
+                              lambda maxCol: "%6.1f" % maxCol}))
+    print("Étendue   ", np.array2string(amplitudeCol, formatter={'float_kind':
+                              lambda amplitudeCol: "%6.1f" % amplitudeCol}))
+    #print("Moyenne", np.array2string(meanCol, precision=2, separator='.'))
 
 def normalisation(mat):
     '''Prend en argument une matrice correspondant à un tableau croisant des 
@@ -55,9 +80,13 @@ def quantitatif_en_qualitatif1(mat, nClasses):
 
     #numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack
     bornes = np.vstack((bornes, matMaxFromCol))
-    print("matMinFromCol ", matMinFromCol)
-    print("matMaxFromCol ", matMaxFromCol)
-    print("bornes", bornes)
+#    print("matMinFromCol ", matMinFromCol)
+#    print("matMaxFromCol ", matMaxFromCol)
+#    print("bornes", bornes)
+    for i in range(bornes.shape[0]):
+        ligne = bornes[i,:]
+        print("Bornes    ", np.array2string(ligne, formatter={'float_kind':
+                              lambda ligne: "%6.1f" % ligne}))
     
     mqual = np.zeros(mat.shape, dtype='int')
     
@@ -68,9 +97,9 @@ def quantitatif_en_qualitatif1(mat, nClasses):
             while not find:
                 if mat[i,j] >= bornes[k,j] and mat[i,j] <= bornes[k+1,j]:
                     find = True
-                    mqual[i,j] = k
+                    mqual[i,j] = k + 1
                 k = k + 1
-    print("mqual \n", mqual)
+#    print("mqual \n", mqual)            
     return mqual
     
 def quantitatif_en_qualitatif2(mat, nClasses):
@@ -96,34 +125,28 @@ def quantitatif_en_qualitatif2(mat, nClasses):
         classes[indBegin:indEnd] = i
         indBegin = indEnd + 1
         
-    dprint(classes)
-    
     mqual = np.zeros(mat.shape, dtype = 'int')
     for i in range(mat.shape[0]):
         for j in range(mat.shape[1]):
             indices
             
-    return np.vsplit(mat,nClasses)
-    
-def affichage (mat):
-    pass
-#    # Open a file
-#    fo = open("foo.txt", "rb")
-#    print "Name of the file: ", fo.name
-#    
-#    # Close opend file
-#    fo.close()    
+    return np.vsplit(mat,nClasses)    
 
 if __name__ == "__main__":
     mat = np.loadtxt("donnees/population_donnees.txt")
-    print("Matrice", mat.shape,": \n",  mat)
+    print("Matrice des données", mat.shape,": \n")
+    for i in range(mat.shape[0]):
+        #print("           ", mat[i,:])
+        ligne = mat[i,:]
+        print("          ", np.array2string(ligne, formatter={'float_kind':
+                              lambda ligne: "%6.1f" % ligne}))
     #matNorm = normalisation(mat)
     #print("Matice normalise", matNorm.shape,": \n" , matNorm)
     
     print("\n Découpage des variables quantitatives en intervalles égaux")
     nClasses = 5
     print("Nombre de Classes :", nClasses)
-    print(quantitatif_en_qualitatif1(mat, nClasses))
+    quantitatif_en_qualitatif1(mat, nClasses)
 #    
 #    print("\n Découpage des variables quantitatives en effectifs égaux")
 #    nClasses = 5

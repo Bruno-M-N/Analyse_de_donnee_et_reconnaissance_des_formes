@@ -27,8 +27,8 @@ def cah(X, noms_lignes, noms_colonnes):
         
         Parameters:
             X : matrice centrée-réduite calculée à partir des données brutes
-            noms_individus (list de strings) : noms des individus pour la ACP
-            noms_variables (list de strings) : noms des variables pour la ACP
+            noms_individus (list de strings) : noms des individus pour la CAH
+            noms_variables (list de strings) : noms des variables pour la CAH
         Returns:
             None
     '''
@@ -44,6 +44,7 @@ def cah(X, noms_lignes, noms_colonnes):
     # Affichage de l'arbre hiérarchique par agrégations successives grâce à  
     # un dendrogram------------------------------------------------------------
     print("Dendrogram")
+    plt.figure(figsize=(10, 8))
     plt.title('Hierarchical clustering dendrogram') 
     plt.xlabel('sample index')
     plt.ylabel ('distance')
@@ -58,7 +59,7 @@ def cah(X, noms_lignes, noms_colonnes):
     #                                  R=None, monocrit=None)[source]
     # Forms flat clusters from the hierarchical clustering defined by the 
     # linkage matrix Z.
-    k = 3
+    k = 5
     clusters = fcluster(Z, k, criterion = 'maxclust')
     print("Clusters")
     print(clusters)
@@ -73,13 +74,13 @@ def cah(X, noms_lignes, noms_colonnes):
     for label, x, y in zip(noms_lignes, X[:,0], X[:,1]):
         plt.annotate(label, 
         xy = (x,y), # The point (x,y) to annotate
-        xytext = (-50,5), # The position (x,y) to place the text at
-        textcoords = 'offset points', # Offset (in points) from the xy value
+        #xytext = (-5,5), # The position (x,y) to place the text at
+        #textcoords = 'offset points', # Offset (in points) from the xy value
         ha = "right", va = "bottom",
-        arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3, rad=0')
+        #arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3, rad=0')
         )
 
-    plt.title('moyennes')
+    plt.title('Moyennes')
     plt.show()
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ Méthode mixte : Analyse en Composantes Principales (ACP)
               + Classification ascendante hiérarchique (CAH) 
 """
 
-# https://numpy.org/devdocs/user/quickstart.html#quickstart-shape-manipulatio
+# https://numpy.org/devdocs/user/quickstart.html#quickstart-shape-manipulation
 import numpy as np
 import codage
 from acp import acp

@@ -17,37 +17,48 @@ import matplotlib.pyplot as plt
 def acm(mat_codage_condense, noms_individus, noms_variables):
     ''' Analyse factorielle des correspondances multiples 
     
-        Réalise une Analyse factorielle des correspondances multiples (ACP) en
+        Réalise une Analyse factorielle des correspondances multiples (ACM) en
         affichant le Diagramme des inerties, la Projection des individus dans 
         le Premier plan factoriel et aussi la Projection du nuage des variables
         dans le Premier plan factoriel
     
         Parameters:
-            X : matrice centrée-réduite calculée à partir des données brutes
-            noms_individus (list de strings) : noms des individus pour la ACP
-            noms_variables (list de strings) : noms des variables pour la ACP
+            mat_codage_condense (numpy.ndarray): matrice de la codage condensé
+                (valeurs codifiés qui ne possèdent pas de propriétes 
+                numèriques)
+            noms_individus (list de strings) : noms des individus pour la ACM
+            noms_variables (list de strings) : noms des variables pour la ACM
         Returns:
-            None
+            noms_modalites (list de strings) : noms des modalites
+            val_p_mod1 (numpy.ndarray): Valeur propres
+            fact_mod1 (numpy.ndarray): 
+            fact_mod2 (numpy.ndarray):
     '''
     
     # Construction du tableau disjonctif complet (TDC)
     # Dans le TDC, les lignes représentent les individus et les
 # colonnes représentent les modalités des variables. Slide 182/261 
-    
-
     nb_modalites_par_var = mat_codage_condense.max(0)
-    nb_modalites = int(nb_modalites_par_var.sum()) #mise en clase
+    nb_modalites = int(nb_modalites_par_var.sum())
 
     XTDC = np.zeros((mat_codage_condense.shape[0], nb_modalites))
     for i in range(mat_codage_condense.shape[0]):
         for j in range(mat_codage_condense.shape[1]):
             XTDC[i, int(nb_modalites_par_var[:j].sum() \
                  + mat_codage_condense[i,j]) - 1] = 1
-
+    
+    #print("XTDC", XTDC)
+    
     noms_modalites = []
     for i in range(mat_codage_condense.shape[1]):
         for j in range(int(nb_modalites_par_var[i])):
-            noms_modalites.append(noms_variables[i] + str(j+1))
+            # rstrip('\n') remove trailing '\n' 
+            noms_modalites.append(noms_variables[i].rstrip('\n') + str(j+1))
+
+    print('nb_modalites_par_var', nb_modalites_par_var)
+    print('nb_modalites', nb_modalites)
+    print('noms_modalites', len(noms_modalites),'____________________________')
+    print(noms_modalites)
 
     # Calcul des matrices X, M et D
     #- X : matrice calculée à partir du TDC
@@ -102,6 +113,15 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
 
     
     fact_mod1 = X.dot(M.dot(vect_p_mod1))
+    print("XTDC", XTDC.shape)
+    print("Xfreq", Xfreq.shape)
+    print("Xindep", Xindep.shape)
+    print("X", X.shape)
+    print("M", M.shape)
+    print("D", D.shape)
+    print("vect_p_mod1", vect_p_mod1.shape)
+    print("fact_mod1", fact_mod1.shape)
+    
     
     #slide 48,53 /261
     # Relations entre les axes d'inertie et les facteurs des deux nuages 
@@ -111,21 +131,38 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
     inerties = 100 * val_p_mod1 / val_p_mod1.sum()  
     
     
-    
+    print("fact_mod2", fact_mod2.shape)
     
     #Contribuition-------------------------------------------------------------
     contribuition_indiv = np.zeros(fact_mod1.shape)
     for i in range(fact_mod1.shape[1]):
         f = fact_mod1[:,i]
         contribuition_indiv[:,i] = 100 * D.dot(f*f) / val_p_mod1[i] 
-                                                    #f.T.dot(D.dot(f))
-    
-    print(contribuition_indiv[:,0])
+    #                                                 f.T.dot(D.dot(f))
+    print('Contribution de représentation des individus')
+#    print(contribuition_indiv[:,0])
 
-    print(inerties)
+    #Qualité de représentation-------------------------------------------------
+    # vecteur collone de dim 28
+    dist = (fact_mod1**2).sum(1)
+    tdist = dist.reshape(len(noms_individus), 1)
+#    print(tdist.shape)
+    qualite_ind = fact_mod1**2 / tdist
+    print('Qualité de représentation des individus')
+#    print(qualite_ind[:,0])
+
+    #Inerties------------------------------------------------------------------
+    print('Inerties')
+#    print(inerties)
     
     plt.close('all') # Close all figures window
     plt.figure(1)
+    plt.plot(inerties,'o-')
+    plt.title("Diagramme des valeurs propres")
+    plt.grid()
+    plt.show()
+    
+    plt.figure(2)
     # plot points with cluster dependent colors
     plt.scatter(fact_mod1[:,0], fact_mod1[:,1])
     for label,x,y in zip(noms_individus,fact_mod1[:,0],fact_mod1[:,1]):
@@ -142,8 +179,16 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
     plt.axvline(linewidth=0.5, color = 'k')
     plt.axhline(linewidth=0.5, color = 'k')
     plt.title('ACM - Projection des individus')
-       
-    plt.figure(2)
+    
+    
+    print('__________________________________________________________________')
+    print('noms_modalites', len(noms_modalites))
+    print('val_p_mod1', len(val_p_mod1))
+    print('fact_mod1', len(fact_mod1))
+    print('fact_mod2', len(fact_mod2))
+    print('__________________________________________________________________')
+    
+    plt.figure(3)
     # plot points with cluster dependent colors
     plt.scatter(fact_mod2[:,0], fact_mod2[:,1])
     for label,x,y in zip(noms_modalites, fact_mod2[:,0],fact_mod2[:,1]):
@@ -160,10 +205,10 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
     plt.axvline(linewidth=0.5, color = 'k')
     plt.axhline(linewidth=0.5, color = 'k')
     plt.title('ACM - Projection des modalites')
-    print("val_p_ind",val_p_mod1)
-    print("fact_mod1",fact_mod1)
-    print("fact_mod2",fact_mod2)
-    return val_p_mod1, fact_mod1, fact_mod2
+#    print("val_p_ind_ACM________________________________________\n",val_p_mod1)
+#    print("fact_mod1_ACM_________________________________________\n",fact_mod1)
+#    print("fact_mod2_ACM_________________________________________\n",fact_mod2)
+    return noms_modalites, val_p_mod1, fact_mod1, fact_mod2
     
 
 if __name__ == "__main__":
@@ -179,9 +224,9 @@ if __name__ == "__main__":
     
     # Lecture des données 
     # Noms individus : 57
-    noms_individus = readfile("TD3-donnees/pommes-noms_individus.txt")
+    noms_individus = readfile("donnees/pommes-noms_individus.txt")
     # Noms des variables : 9
-    noms_variables = readfile("TD3-donnees/pommes-noms_variables.txt")
+    noms_variables = readfile("donnees/pommes-noms_variables.txt")
     # Codage condensé (Tableau de type Individus x Variables comme en ACP)
-    mat = np.loadtxt("TD3-donnees/pommes-donnees.txt")
+    mat = np.loadtxt("donnees/pommes-donnees.txt")
     acm(mat, noms_individus, noms_variables)
