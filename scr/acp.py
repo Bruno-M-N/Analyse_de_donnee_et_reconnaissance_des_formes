@@ -95,7 +95,7 @@ def acp(X,noms_individus, noms_variables):
     # vecteur collone de dim 28
     dist = (fact_ind**2).sum(1)
     tdist = dist.reshape(len(noms_individus), 1)
-    print(tdist.shape)
+#    print(tdist.shape)
     qualite_ind = fact_ind**2 / tdist
     print('Qualité de représentation des individus')
     print(qualite_ind[:,0])

@@ -39,7 +39,7 @@ def cah(X, noms_lignes, noms_colonnes):
     #                                 optimal_ordering=False)[source]
     # https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html 
     # Perform hierarchical/agglomerative clustering.
-    Z = linkage(X, 'ward')
+    Z = linkage(X, 'single')
 
     # Affichage de l'arbre hiérarchique par agrégations successives grâce à  
     # un dendrogram------------------------------------------------------------
