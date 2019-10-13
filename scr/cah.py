@@ -68,6 +68,7 @@ def cah(X, noms_lignes, noms_colonnes):
     # un dendrogram------------------------------------------------------------
 
     plt.figure(figsize=(10, 8))
+    plt.axis('on')
     plt.scatter(X[:,0], X[:,1], c = clusters)#, cmap = plt.cm.spectral) 
                                              # plot points with cluster depende
 
@@ -80,7 +81,8 @@ def cah(X, noms_lignes, noms_colonnes):
         #arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3, rad=0')
         )
 
-    plt.title('Moyennes')
+#    plt.title('Moyennes')
+    plt.grid()
     plt.show()
 
 if __name__ == "__main__":
