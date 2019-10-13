@@ -80,20 +80,7 @@ Des modules différents ont été développés pour chacune des
 
 \section{Implementation}
 
-L'implementation du programme a été faite avec la langage Python 3.7. Le documentation a été fait en utilisant docstrings et des commentaires. On a aussi fait le design du code de tel façon  à aider la compréhension, en choisissant les nome des variables, attributs et méthodes qui explicitent la solution. Quelques méthodes ont été nommés d'après les fichiers disponibles dans la plateforme Pédagogique.
-
-L'archive BE3-remarques-fusion.pdf disponibles dans la plateforme Pédagogique a été utilise pour réaliser quelques optimisations dans le code.
-
-Le code est montré dans le topique suivant:
-
-Figure \ref{fig: Label diagramme_des_inerties}.
-
-%------ Pour insérer et citer une image centralisée -----
-\insererfigure{img/diagramme_des_inerties_acp.jpeg}{8cm}{Diagramme des inerties : ACP}{Label diagramme_des_inerties}
-% Le premier argument est le chemin pour la photo
-% Le deuxième est la hauteur de la photo
-% Le troisième la légende
-% Le quatrième le label
+L'implementation du programme a été faite avec la langage Python 3.7. Le documentation a été fait en utilisant docstrings et des commentaires. On a aussi fait le design du code de tel façon  à aider la compréhension, en choisissant les nome des variables, attributs et méthodes qui explicitent la solution. 
 
 Cette méthode mixte devra être réalisée pour quatre combinaisons :
 - ACP + CAH
@@ -101,9 +88,16 @@ Cette méthode mixte devra être réalisée pour quatre combinaisons :
 - ACM + CAH
 - ACM + centres mobiles
 
-
-
 \section{Démarche et analyse des résultats}
+
+Tout d'abord, on peut effectuer un étude uni-variée sur le jeu de données \textbf{population}. Cet étude consiste à décrire individuellement chaque variable, afin de mieux les connaître. Pour cela, on a crée la fonction \textit{basicStatics}. Pour chaque variable du tableau de données, la moyenne, l'écart-type, la variance, la valeur minimale, la valeur maximale, et l'étendue sont calculés (cf. Figure \ref{fig: Label Etude_univariee.jpg}).
+
+%------ Pour insérer et citer une image centralisée -----
+\insererfigure{img/Etude_univariee.jpg}{12cm}{Étude uni-variée}{Label Etude_univariee.jpg}
+% Le premier argument est le chemin pour la photo
+% Le deuxième est la hauteur de la photo
+% Le troisième la légende
+% Le quatrième le label
 
 \subsection{ACP/ACM + CAH}
 \input{ACP_ACM_CAH.tex}
@@ -113,6 +107,13 @@ Cette méthode mixte devra être réalisée pour quatre combinaisons :
 
 \section{Conclusion}
 \input{conclusion.tex}
+
+\section{Bibliographie}
+
+SCYPY.ORG. scipy.cluster.hierarchy.linkage. Disponible sur : < \url{https://docs.scipy.org/doc/scipy-0.16.0/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage} > (consulté le 13 octobre 2019)\newline
+
+SCYPY.ORG. scipy.cluster.hierarchy.fcluster. Disponible sur : < \url{https://docs.scipy.org/doc/scipy-0.16.0/reference/generated/scipy.cluster.hierarchy.fcluster.html#scipy.cluster.hierarchy.fcluster} > (consulté le 14 octobre 2019)\newline
+
 
 \newpage
 \subsection{Code}
