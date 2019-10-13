@@ -37,7 +37,7 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
     
     # Construction du tableau disjonctif complet (TDC)
     # Dans le TDC, les lignes représentent les individus et les
-# colonnes représentent les modalités des variables. Slide 182/261 
+    # colonnes représentent les modalités des variables. Slide 182/261 
     nb_modalites_par_var = mat_codage_condense.max(0)
     nb_modalites = int(nb_modalites_par_var.sum())
 
@@ -47,7 +47,7 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
             XTDC[i, int(nb_modalites_par_var[:j].sum() \
                  + mat_codage_condense[i,j]) - 1] = 1
     
-    #print("XTDC", XTDC)
+#   print("XTDC", XTDC)
     
     noms_modalites = []
     for i in range(mat_codage_condense.shape[1]):
@@ -55,10 +55,10 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
             # rstrip('\n') remove trailing '\n' 
             noms_modalites.append(noms_variables[i].rstrip('\n') + str(j+1))
 
-    print('nb_modalites_par_var', nb_modalites_par_var)
-    print('nb_modalites', nb_modalites)
-    print('noms_modalites', len(noms_modalites),'____________________________')
-    print(noms_modalites)
+#    print('nb_modalites_par_var', nb_modalites_par_var)
+#    print('nb_modalites', nb_modalites)
+#    print('noms_modalites', len(noms_modalites))
+#    print(noms_modalites)
 
     # Calcul des matrices X, M et D
     #- X : matrice calculée à partir du TDC
@@ -113,14 +113,14 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
 
     
     fact_mod1 = X.dot(M.dot(vect_p_mod1))
-    print("XTDC", XTDC.shape)
-    print("Xfreq", Xfreq.shape)
-    print("Xindep", Xindep.shape)
-    print("X", X.shape)
-    print("M", M.shape)
-    print("D", D.shape)
-    print("vect_p_mod1", vect_p_mod1.shape)
-    print("fact_mod1", fact_mod1.shape)
+#    print("XTDC", XTDC.shape)
+#    print("Xfreq", Xfreq.shape)
+#    print("Xindep", Xindep.shape)
+#    print("X", X.shape)
+#    print("M", M.shape)
+#    print("D", D.shape)
+#    print("vect_p_mod1", vect_p_mod1.shape)
+#    print("fact_mod1", fact_mod1.shape)
     
     
     #slide 48,53 /261
@@ -131,7 +131,7 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
     inerties = 100 * val_p_mod1 / val_p_mod1.sum()  
     
     
-    print("fact_mod2", fact_mod2.shape)
+#    print("fact_mod2", fact_mod2.shape)
     
     #Contribuition-------------------------------------------------------------
     contribuition_indiv = np.zeros(fact_mod1.shape)
@@ -140,7 +140,7 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
         contribuition_indiv[:,i] = 100 * D.dot(f*f) / val_p_mod1[i] 
     #                                                 f.T.dot(D.dot(f))
     print('Contribution de représentation des individus')
-#    print(contribuition_indiv[:,0])
+    print(contribuition_indiv[:,0])
 
     #Qualité de représentation-------------------------------------------------
     # vecteur collone de dim 28
@@ -149,11 +149,11 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
 #    print(tdist.shape)
     qualite_ind = fact_mod1**2 / tdist
     print('Qualité de représentation des individus')
-#    print(qualite_ind[:,0])
+    print(qualite_ind[:,0])
 
     #Inerties------------------------------------------------------------------
     print('Inerties')
-#    print(inerties)
+    print(inerties)
     
     plt.close('all') # Close all figures window
     plt.figure(1)
@@ -181,12 +181,12 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
     plt.title('ACM - Projection des individus')
     
     
-    print('__________________________________________________________________')
-    print('noms_modalites', len(noms_modalites))
-    print('val_p_mod1', len(val_p_mod1))
-    print('fact_mod1', len(fact_mod1))
-    print('fact_mod2', len(fact_mod2))
-    print('__________________________________________________________________')
+#    print("_"*82)
+#    print('noms_modalites', len(noms_modalites))
+#    print('val_p_mod1', len(val_p_mod1))
+#    print('fact_mod1', len(fact_mod1))
+#    print('fact_mod2', len(fact_mod2))
+#    print("_"*82)
     
     plt.figure(3)
     # plot points with cluster dependent colors
@@ -205,9 +205,9 @@ def acm(mat_codage_condense, noms_individus, noms_variables):
     plt.axvline(linewidth=0.5, color = 'k')
     plt.axhline(linewidth=0.5, color = 'k')
     plt.title('ACM - Projection des modalites')
-#    print("val_p_ind_ACM________________________________________\n",val_p_mod1)
-#    print("fact_mod1_ACM_________________________________________\n",fact_mod1)
-#    print("fact_mod2_ACM_________________________________________\n",fact_mod2)
+#    print("val_p_ind_ACM_______________________________________\n",val_p_mod1)
+#    print("fact_mod1_ACM________________________________________\n",fact_mod1)
+#    print("fact_mod2_ACM________________________________________\n",fact_mod2)
     return noms_modalites, val_p_mod1, fact_mod1, fact_mod2
     
 

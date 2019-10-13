@@ -111,15 +111,15 @@ def acp(X,noms_individus, noms_variables):
     plt.grid()
     plt.show()
 
-    print((fact_ind[:,0].T.dot(D.dot(fact_ind[:,0]))))
-    print("Premier valeur propre :", val_p_ind[0],"/", X.shape[1], "->",
-          np.round(val_p_ind[0] / X.shape[1] * 100,2), "%")
-    print("Deuxième valeur propre :", val_p_ind[1],"/", X.shape[1], "->",
-          np.round(val_p_ind[1] / X.shape[1] * 100,2), "%")
-    
+#    print((fact_ind[:,0].T.dot(D.dot(fact_ind[:,0]))))
+#    print("Premier valeur propre :", val_p_ind[0],"/", X.shape[1], "->",
+#          np.round(val_p_ind[0] / X.shape[1] * 100,2), "%")
+#    print("Deuxième valeur propre :", val_p_ind[1],"/", X.shape[1], "->",
+#          np.round(val_p_ind[1] / X.shape[1] * 100,2), "%")
+#    
     F1, F2 = fact_ind[:,0], fact_ind[:,1]
-    print("F1", F1)
-    print("F2", F2)
+#    print("F1", F1)
+#    print("F2", F2)
 
     plt.figure(2)
     axes = plt.gca()
@@ -155,8 +155,8 @@ def acp(X,noms_individus, noms_variables):
     plt.show()
     
     G1, G2 = fact_var[:,0], fact_var[:,1]
-    print("G1", G1)
-    print("G2", G2)
+#    print("G1", G1)
+#    print("G2", G2)
     
     plt.figure(3)
     x = np.arange(-1,1,0.0001)
@@ -208,9 +208,24 @@ if __name__ == "__main__":
 
     mat = np.loadtxt("donnees/population_donnees.txt")
     #print("Matrice", mat.shape,": \n" ,  mat)
-    print("            PROF   TRAN   MENA   ENFA   COUR   TOIL   REPA   SOMM   TELE   LOIS")
+    
+    # Affiche les noms des variables 
+    print("            ", end='')
+    for i in range(len(noms_variables)):
+        print(noms_variables[i].rstrip('\n'), "  ", end='')
+    print('')
+    # Affiche les noms des individus et les valeurs associés 
+    for i in range(mat.shape[0]):
+        ligne = mat[i,:]
+        # rstrip('\n') remove trailing '\n' 
+        print(noms_individus[i].rstrip('\n'),"     ", np.array2string(ligne,
+              formatter={'float_kind': lambda ligne: "%6.1f" % ligne}))
+    
+    print("_"*82)
+    #  Étude univariée qui consiste à décrire individuellement chaque variable
     basicStatics(mat)
-    print("            PROF   TRAN   MENA   ENFA   COUR   TOIL   REPA   SOMM   TELE   LOIS")
+    
+    print("_"*82)
     matNorm = normalisation(mat)
     acp(matNorm[:,0:10],noms_individus, noms_variables)
     #print("Donne",a,b,c)

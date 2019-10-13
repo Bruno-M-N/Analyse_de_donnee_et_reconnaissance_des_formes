@@ -38,15 +38,16 @@ if __name__ == "__main__":
         # rstrip('\n') remove trailing '\n' 
         print(noms_individus[i].rstrip('\n'),"     ", np.array2string(ligne,
               formatter={'float_kind': lambda ligne: "%6.1f" % ligne}))
-    print("__________________________________________________________________")
+    
+    print("_"*82)
     #  Étude univariée qui consiste à décrire individuellement chaque variable
     basicStatics(mat)
-    print("__________________________________________________________________")
-   
+    
+    print("_"*82)
     nClasses = 4
     print("Mise en classes : Nombre de Classes =", nClasses)
     mat = quantitatif_en_qualitatif1(mat, nClasses)
-    print("__________________________________________________________________")            
+    print("_"*82)
     
     # Affiche les noms des variables
     print("            ", end='')
@@ -59,14 +60,14 @@ if __name__ == "__main__":
         print(noms_individus[i].rstrip('\n'),"     ", np.array2string(ligne,
               formatter={'int': lambda ligne: "%6.0f" % ligne}))
         
-    print("__________________________________________________________________")
-    print(" Analyse factorielle des correspondances multiples (ACM)")
+    print("_"*82)
+    print("Analyse factorielle des correspondances multiples (ACM)")
     noms_modalites, val_p_mod1, fact_mod1, fact_mod2 = acm(mat, noms_individus,
                                                            noms_variables)
     
-    print("Résultat de l'analyse factoriel___________________________________")
-    print("Nombre de facteurs = ", len(val_p_mod1), "________________________")
-    print("__________________________________________________________________")
+    print("Résultat de l'analyse factoriel")
+    print("Nombre de facteurs = ", len(val_p_mod1))
+
     sommeInertiePercentual = 0
     nombrefacteurs = len(val_p_mod1)
     flagBreak = 0
@@ -86,9 +87,14 @@ if __name__ == "__main__":
 ##            print(sommeInertiePercentual, ">", pourcentageInertie)
 #            flagBreak = 1
             
-    print("Nombre de facteurs retenu = ", nombrefacteurs, "__________________")
-            
+    print("Nombre de facteurs retenu = ", nombrefacteurs)
+    
+    print("_"*82)
+    print("Classification ascendante hiérarchique (CAH)")
+    print("Facteur modalité 1")        
     cah(fact_mod1[:,0:nombrefacteurs], noms_individus, noms_modalites)
     
-    
+    print("_"*82)
+    print("Classification ascendante hiérarchique (CAH)")
+    print("Facteur modalité 2")
     cah(fact_mod2[:,0:nombrefacteurs], noms_modalites, noms_individus)

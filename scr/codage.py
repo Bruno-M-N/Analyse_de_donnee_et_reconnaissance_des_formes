@@ -72,7 +72,9 @@ def quantitatif_en_qualitatif1(mat, nClasses):
     matMinFromCol = mat.min(0)
     matMaxFromCol = mat.max(0)
     lenghtIntervale = (matMaxFromCol - matMinFromCol)/nClasses
-    print("Lenght Intervale: ", lenghtIntervale)
+    print("Étendue Intervalle: \n           ", end='')
+    print(np.array2string(lenghtIntervale, formatter={'float_kind':
+        lambda  lenghtIntervale: "%6.1f" %  lenghtIntervale}))
     
     bornes = matMinFromCol
     for i in range (1, nClasses):

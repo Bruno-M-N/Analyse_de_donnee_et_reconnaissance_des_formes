@@ -26,16 +26,33 @@ if __name__ == "__main__":
 
     mat = np.loadtxt("donnees/population_donnees.txt")
     #print("Matrice", mat.shape,": \n" ,  mat)
+    
+    # Affiche les noms des variables 
+    print("            ", end='')
+    for i in range(len(noms_variables)):
+        print(noms_variables[i].rstrip('\n'), "  ", end='')
+    print('')
+    # Affiche les noms des individus et les valeurs associés 
+    for i in range(mat.shape[0]):
+        ligne = mat[i,:]
+        # rstrip('\n') remove trailing '\n' 
+        print(noms_individus[i].rstrip('\n'),"     ", np.array2string(ligne,
+              formatter={'float_kind': lambda ligne: "%6.1f" % ligne}))
+    
+    print("_"*82)
+    #  Étude univariée qui consiste à décrire individuellement chaque variable
     basicStatics(mat)
+    
+    print("_"*82)
     matNorm = normalisation(mat)
+    
     print("Analyse en Composantes Principales (ACP)")
     val_p_ind, fact_ind, fact_var = acp(matNorm, noms_individus, 
                                         noms_variables)
-    print("I'm back")
     #
-    print("Résultat de l'analyse factoriel___________________________________")
-    print("Nombre de facteurs = ", len(val_p_ind), "_________________________")
-    print("__________________________________________________________________")
+    print("Résultat de l'analyse factoriel")
+    print("Nombre de facteurs = ", len(val_p_ind))
+    
     sommeInertiePercentual = 0
     nombrefacteurs = 1,
     flagBreak = 0
@@ -55,9 +72,14 @@ if __name__ == "__main__":
             print(sommeInertiePercentual, ">", pourcentageInertie)
             flagBreak = 1
             
-    print("Nombre de facteurs retenu = ", nombrefacteurs, "__________________")
-            
+    print("Nombre de facteurs retenu = ", nombrefacteurs)
+    
+    print("_"*82)
+    print("Classification ascendante hiérarchique (CAH)")
+    print("Facteur individus")        
     cah(fact_ind[:,0:nombrefacteurs], noms_individus, noms_variables)
     
-    
+    print("_"*82)
+    print("Classification ascendante hiérarchique (CAH)")
+    print("Facteur variables")
     cah(fact_var[:,0:nombrefacteurs], noms_variables, noms_individus)
