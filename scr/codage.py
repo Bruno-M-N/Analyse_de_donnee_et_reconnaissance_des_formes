@@ -16,7 +16,7 @@ def readfile(filename):
 def basicStatics(mat):
     '''Étude univariée qui consiste à décrire individuellement chaque variable
     afin de mieux les connaître. Pour chaque variable du tableau de données, la
-    moyenne, l'écart-type, la variance,la valeur mininale, la valeur maximale, 
+    moyenne, l'écart-type, la variance,la valeur minimale, la valeur maximale, 
     et l'étendue sont calculés
     '''
     #print("Moyenne, Écart-type, Variance, Min, Max, Étendue")
